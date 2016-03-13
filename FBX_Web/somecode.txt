@@ -1,0 +1,18 @@
+if len(poly) == 3:
+            v1 = poly[0]
+            v2 = poly[1]
+            v3 = poly[2]
+            
+            f.write('<polygon points="')
+            f.write('%d,%d %d,%d %d,%d' % (v1[0]+height-200, width-100-v1[1] , v2[0]+height-200, width-100-v1[1] , v3[0]+height-200, width-100-v3[1]) ) #only x and y components
+            f.write('" style =" fill:#00%d00;stroke=none"/>' % (color) )
+            
+        elif len(poly) == 4:
+            v1 = poly[0]
+            v2 = poly[1]
+            v3 = poly[2]
+            v4 = poly[3]
+            
+            f.write('<polygon points="')
+            f.write('%d,%d %d,%d %d,%d %d,%d' % (v1[0]+height-200, width-100-v1[1] , v2[0]+height-200, width-100-v1[1] , v3[0]+height-200, width-100-v3[1] , v4[0]+height-200, width-100-v4[1]) ) #only x and y components
+            f.write('" style =" fill:#00%d00;stroke=none"/>' % (color) )
