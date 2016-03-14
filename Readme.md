@@ -28,7 +28,80 @@ def extractPolygons(node):
     for i in range(node.GetChildCount()):
             extractPolygons(node.GetChild(i))
 ```  
-*Comments:*  First, for each node detects if it corresponds to a mesh or not. Second, for each mesh detects the number of polygons. Then, for each polygon obtain its vertices and appends them into a list of vertices: one list for each polygon. Each polygon is then appended to a list of polygons,i.e., *polygons*, which is a list of lists.
+*Comments:*  First, for each node detects if it corresponds to a mesh or not. Second, for each mesh detects the number of polygons. Then, for each polygon obtain its vertices and adds them into a list of vertices: one list per polygon. Each polygon is then added to a list of polygons,i.e., *polygons*, which becomes a list of lists. All vectors have dimension 3.
+
+The advantage of this method is that allows for mofularity: once we have extracted all the polygons we don't need the .fbx file anymore and we can just work on the list of lists, *polygons*. Since *polygons* is ultimately a list of lists of vertices, we can apply transformations using matrices directly into this data structure. To achieve an isometric view, I used the followint transformations:
+```python  
+	#Reset transformations
+        camera = SomeMaths.id3()
+
+        #Transformations
+        camera = SomeMaths.RotateZ(45*rads,camera)
+        camera = SomeMaths.RotateX(45*rads,camera)
+```  
+Where camera is 3x3 matrix.  
+I made the module *SomeMaths* to organize the code and separate the maths-related functions from the rest of the code. With *SomeMaths* the following operations are supported:  
+- Rotations (about each axis) via 3x3 matrix
+- Scaling via 3x3 matrix
+- Product of Matrix 3x3 per Vector of dimension 3
+- Create, reset matrix to Id matrix 3x3  
+
+Once, transformations has been done I tackled the issue that different models comming from.fbx files have different sizes. Therefore, in order to fit our rendering into an SVG-canvas we might need to scale it. To that purpose, the list *boundaries* contains the dimension of width and height int the following format [maxX,minX,maxY,minY]. This is the code:  
+```python  
+def sceneBoundaries():
+        maxX = 0
+        minX = 0
+        maxY = 0
+        minY = 0
+
+        for poly in polygons:
+            for vertex in poly:
+                if(vertex[0] > maxX):
+                    maxX = vertex[0]
+                if(vertex[0] < minX): 
+                    minX = vertex[0]
+                if(vertex[1] > maxY):
+                    maxY = vertex[1]
+                if(vertex[1] < minY):
+                    minY = vertex[1]
+
+        boundaries = []
+        boundaries.append(maxX)
+        boundaries.append(minX)
+        boundaries.append(maxY)
+        boundaries.append(minY)
+
+        return boundaries
+```  
+Once the scaling factor has been calculated with the *calculateFactor()* using the list *boundaries* then and only then I applied the regarding scaling transformation to the list *polygons*. 
+
+In order to render our polygons in SVG, the best approah suggested by Mircea is to order all the vertices using the z-component ("depth") and render them back to front. This process is achieved by matching each polygon by its middle vertex and sorting all the middle vertices from far to near, one to one with our *polygons* list.
+Here is the code:  
+```python
+def sortPolygons():
+    #Sort polygons from back to front, sorting z component of middle point of each polygon from large to small.
+    middles = []
+    for poly in polygons:
+        numVertices = len(poly)
+        cz = 0
+        for i in range(numVertices):
+            cz += poly[i][2]
+        cz = cz/numVertices
+
+        middles.append(cz)
+
+    for i in range(0, len(polygons)-1):
+        for j in range(i, len(polygons)):
+            if (middles[j] < middles[i]):
+                temp = middles[i]
+                middles[i] = middles[j]
+                middles[j] = temp
+                temp = polygons[i]
+                polygons[i] = polygons[j]
+                polygons[j] = temp
+``` 
+*Note:* So far polygons of any number of sides have been considered as I found some .fbx models using pentagons as a polygon, not only triangles and quads which are usually the common ones.
+	
 
 
 

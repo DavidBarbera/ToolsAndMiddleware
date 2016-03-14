@@ -76,22 +76,23 @@ def extractPolygons(node):
             extractPolygons(node.GetChild(i))
 
 def sortPolygons():
-    #Sort polygons from back to front, sorting z component of middle point(center) of each polygon from large to small.
-    centers = []
+    #Sort polygons from back to front, sorting z component of middle point of each polygon from large to small.
+    middles = []
     for poly in polygons:
-        if len(poly) == 3:
-            cz = (poly[0][2] + poly[1][2] + poly[2][2]) / 3.0
-        else:
-            cz = (poly[0][2] + poly[1][2] + poly[2][2] + poly[3][2]) / 4.0
+        numVertices = len(poly)
+        cz = 0
+        for i in range(numVertices):
+            cz += poly[i][2]
+        cz = cz/numVertices
 
-        centers.append(cz)
+        middles.append(cz)
 
     for i in range(0, len(polygons)-1):
         for j in range(i, len(polygons)):
-            if (centers[j] < centers[i]):
-                temp = centers[i]
-                centers[i] = centers[j]
-                centers[j] = temp
+            if (middles[j] < middles[i]):
+                temp = middles[i]
+                middles[i] = middles[j]
+                middles[j] = temp
                 temp = polygons[i]
                 polygons[i] = polygons[j]
                 polygons[j] = temp
