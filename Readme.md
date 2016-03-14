@@ -106,9 +106,7 @@ def sortPolygons():
 
 The following is an example of models rendered using two different approaches:
 
-![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPot.png "Tea Pot Solid")
-
-![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPotLines.png "Tea Pot Lines")
+![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPot.png "Tea Pot Solid") ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPotLines.png "Tea Pot Lines")
 
 The solid tea pot achieves a nice looking depth/volume sensation by assigning to each polygon a lighter shade of color, in this case yellow, depending on how far was each z-component. Although this approach brings the nicest looking graphics, it is only feasible for small files. Large files of 1Mb or more are too slow to render. The second approach of just rendering the lines achieve better performance by processing comfortably .fbx files larger than 4Mb, but the results are not as nice still gives a good idea how the original .fbx file looks like.  
 
