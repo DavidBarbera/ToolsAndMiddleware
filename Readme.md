@@ -33,7 +33,7 @@ def extractPolygons(node):
 ```  
 *Comments:*  First, for each node detects if it corresponds to a mesh or not. Second, for each mesh detects the number of polygons. Then, for each polygon obtain its vertices and adds them into a list of vertices: one list per polygon. Each polygon is then added to a list of polygons,i.e., *polygons*, which becomes a list of lists. All vectors have dimension 3.
 
-The advantage of this method is that allows for mofularity: once we have extracted all the polygons we don't need the .fbx file anymore and we can just work on the list of lists, *polygons*. Since *polygons* is ultimately a list of lists of vertices, we can apply transformations using matrices directly into this data structure. To achieve an isometric view, I used the followint transformations:
+The advantage of this method is that allows for modularity: once we have extracted all the polygons we don't need the .fbx file anymore and we can just work on the list of lists, *polygons*. Since *polygons* is ultimately a list of lists of vertices, we can apply transformations using matrices directly into this data structure. To achieve an isometric view, I used the following transformations:
 ```python  
 	#Reset transformations
         camera = SomeMaths.id3()
@@ -49,7 +49,7 @@ I made the module *SomeMaths* to organize the code and separate the maths-relate
 - Product of Matrix 3x3 per Vector of dimension 3
 - Create, reset matrix to Id matrix 3x3  
 
-Once, transformations has been done I tackled the issue that different models comming from.fbx files have different sizes. Therefore, in order to fit our rendering into an SVG-canvas we might need to scale it. To that purpose, the list *boundaries* contains the dimension of width and height int the following format [maxX,minX,maxY,minY]. This is the code:  
+Once, transformations have been done I tackled the issue that different models comming from.fbx files have different sizes. Therefore, in order to fit our rendering into an SVG-canvas we might need to scale it. To that purpose, the list *boundaries* contains the dimension of width and height int the following format [maxX,minX,maxY,minY]. This is the code:  
 ```python  
 def sceneBoundaries():
         maxX = 0
@@ -109,7 +109,7 @@ The following is an example of models rendered using two different approaches:
 
 ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPot.png "Tea Pot Solid") ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPotLines.png "Tea Pot Lines")
 
-The solid tea pot achieves a nice looking depth/volume sensation by assigning to each polygon a lighter shade of color, in this case yellow, depending on how far was each z-component. Although this approach brings the nicest looking graphics, it is only feasible for small files. Large files of 1Mb or more are too slow to render. The second approach of just rendering the lines achieve better performance by processing comfortably .fbx files larger than 4Mb, but the results are not as nice still gives a good idea how the original .fbx file looks like.  
+The solid tea pot achieves a nice looking depth/volume sensation by assigning to each polygon a lighter shade of color, in this case yellow, depending on how large was each z-component. Although this approach brings the nicest looking graphics, it is only feasible for small files. Large files of 1Mb or more are too slow to render. The second approach of just rendering the lines achieve better performance by processing comfortably .fbx files larger than 4Mb, but the results are not as nice still gives a good idea how the original .fbx file looks like.  
 
 The code for the second approach is the following:  
 ```python
