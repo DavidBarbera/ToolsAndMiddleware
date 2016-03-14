@@ -2,7 +2,7 @@
 ####This program reads a directory of FBX files and renders each of them in a simple webpage in an SVG format.
 This is the report for the second Tools and Middleware's assignment. Initially, this project started individually by David Barbera but was joined later on by Mircea Catana who offered insights in different ways of using Python bindings to read .fbx files to extract the minimum information to render the model efficiently.
 Here there are some examples:
-![alt text]( "Some examples")
+![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/Examples.png "Some examples")
 
 ###The Program  
 The final version of the program uses Pythong Bindings to extract information about the polygons in each mesh for an .fbx file. This approach offears the possiblity to render the resulting information using the *"polygon points"*-feature of the SVG format, allowing a one-to-one translation from on format to the other and resulting in a nicer display than other approaches tried previously. 
@@ -142,7 +142,7 @@ def get_projection(node):
 * [Mircea Catana](https://github.com/mircea-catana/FBX_SVG)
 
 #Video  
-[link to a video of this project]()
+[Link to a video of this project](https://www.youtube.com/watch?v=OvDSIDHvn4Y&feature=youtu.be)
 
 
 
