@@ -3,10 +3,23 @@ import math
 def MatrixVector3Product( matrix, vector):
     
         result = [0]*3
-        for i in range(3):
-            result[i] = vector[0]*matrix[0][i] + vector[1]*matrix[1][i] + vector[2]*matrix[2][i]
+        if( len(vector)==3):
+             for i in range(3):
+
+              result[i] = vector[0]*matrix[0][i] + vector[1]*matrix[1][i] + vector[2]*matrix[2][i]
+       
+        else:
+           print "Error, wrong size vector != 3"
+
         return result
 
+      
+
+def id3():
+    matrix = [[1, 0, 0],
+              [0, 1, 0],
+              [0, 0, 1]]
+    return matrix
 
 def Scale( magnitude, matrix):
      rot = [[magnitude, 0, 0],
@@ -52,9 +65,10 @@ def RotateY( angle, matrix):
         for j in range(3):
             result[i][j] = matrix[i][0]*rot[0][j] + matrix[i][1]*rot[1][j] + matrix[i][2]*rot[2][j]
 
-    for i in range(3):
-        for j in range(3):
-            matrix[i][j] = result[i][j]
+  #  for i in range(3):
+  #      for j in range(3):
+  #          matrix[i][j] = result[i][j]
+    return result
 
 def RotateZ( angle, matrix):
     rot = [[math.cos(angle), -math.sin(angle),0],
@@ -66,6 +80,7 @@ def RotateZ( angle, matrix):
         for j in range(3):
             result[i][j] = matrix[i][0]*rot[0][j] + matrix[i][1]*rot[1][j] + matrix[i][2]*rot[2][j]
 
-    for i in range(3):
-        for j in range(3):
-            matrix[i][j] = result[i][j]
+    #for i in range(3):
+    #    for j in range(3):
+    #        matrix[i][j] = result[i][j]
+    return result
