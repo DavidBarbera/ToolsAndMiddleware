@@ -100,7 +100,17 @@ def sortPolygons():
                 polygons[i] = polygons[j]
                 polygons[j] = temp
 ``` 
-*Note:* So far polygons of any number of sides have been considered as I found some .fbx models using pentagons as a polygon, not only triangles and quads which are usually the common ones.
+*Note:* So far polygons of any number of sides have been considered as I found some .fbx models using pentagons as a polygon, not only triangles and quads which are usually the most common ones.  
+
+The following is an example of models rendered using two different approaches:
+
+![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPot.png "Tea Pot Solid")
+
+![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPotLines.png "Tea Pot Lines")
+
+
+
+
 	
 
 
