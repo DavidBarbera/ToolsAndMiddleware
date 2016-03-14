@@ -1,8 +1,10 @@
 #FBX models rendered to SVG format using Python  
 ####This program reads a directory of FBX files and renders each of them in a simple webpage in an SVG format.
 This is the report for the second Tools and Middleware's assignment. Initially, this project started individually by David Barbera but was joined later on by Mircea Catana who offered insights in different ways of using Python bindings to read .fbx files to extract the minimum information to render the model efficiently.
+Here there are some examples:
+![alt text]( "Some examples")
 
-##The Program  
+###The Program  
 The final version of the program uses Pythong Bindings to extract information about the polygons in each mesh for an .fbx file. This approach offears the possiblity to render the resulting information using the *"polygon points"*-feature of the SVG format, allowing a one-to-one translation from on format to the other and resulting in a nicer display than other approaches tried previously. 
 
 The code responsible for the extraction of polygons is the following:  
@@ -107,6 +109,44 @@ The following is an example of models rendered using two different approaches:
 ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPot.png "Tea Pot Solid")
 
 ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/TeaPotLines.png "Tea Pot Lines")
+
+The solid tea pot achieves a nice looking depth/volume sensation by assigning to each polygon a lighter shade of color, in this case yellow, depending on how far was each z-component. Although this approach brings the nicest looking graphics, it is only feasible for small files. Large files of 1Mb or more are too slow to render. The second approach of just rendering the lines achieve better performance by processing comfortably .fbx files larger than 4Mb, but the results are not as nice still gives a good idea how the original .fbx file looks like.  
+
+The code for the second approach is the following:  
+```python
+def get_projection(node):
+    
+    mesh = node.GetMesh()
+  
+    if not mesh:
+        print("not mesh")
+    else:
+        for i in mesh.GetPolygonVertices():
+            point = mesh.GetControlPointAt(i)
+            vertex = [0 for x in range(3)]
+            vertex[0] = point[0]*camera[0][0] + point[1]*camera[1][0] + point[2]*camera[2][0]
+            vertex[1] = point[0]*camera[0][1] + point[1]*camera[1][1] + point[2]*camera[2][1]
+            vertex[2] = point[0]*camera[0][2] + point[1]*camera[1][2] + point[2]*camera[2][2]
+            f.write('%d,%d ' % (vertex[0] + width/2, height/2 - vertex[1]))    #Only 2 first components as .svg is 2D
+
+    for i in range(node.GetChildCount()):
+        
+        get_projection(node.GetChild(i))
+```  
+*Comments:* Originally made without the *SomeMaths* module, this approach is less modular and renders to SVG as it recursively reads from the .fbx file, which offers speed. However, it becomes impossible to scale without knowing the boundaries of the scene previousy, a feature that exists in the C++ version of the Python SDK but not yet in the Python bindings. This project is filed in [FBX_WebPage](https://github.com/DavidBarbera/ToolsAndMiddleware/tree/master/FBX_WebPage) folder.
+
+##References  
+* [List of Python fbx classes. Autodesk FBX help for SDK](http://download.autodesk.com/us/fbx/20112/FBX_SDK_HELP/index.html?url=WS1a9193826455f5ff453265c9125faa23bbb5fe8.htm,topicNumber=d0e8312)
+
+##Repositories
+* [Mircea Catana](https://github.com/mircea-catana/FBX_SVG)
+
+#Video  
+[link to a video of this project]()
+
+
+
+
 
 
 
