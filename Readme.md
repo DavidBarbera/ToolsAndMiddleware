@@ -6,7 +6,7 @@ Here there are some examples:
 ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/Examples.png "Some examples")
 
 ###The Program  
-The final version of the program uses Python Bindings to extract information about the polygons in each mesh for an .fbx file. This approach offears the possiblity to render the resulting information using the *"polygon points"*-feature of the SVG format, allowing a one-to-one translation from on format to the other and resulting in a nicer display than other approaches tried previously. 
+The final version of the program uses Python Bindings to extract information about the polygons in each mesh for an .fbx file. This approach offers the possiblity to render the resulting information using the *"polygon points"*-feature of the SVG format, allowing a one-to-one translation from on format to the other and resulting in a nicer display than other approaches tried previously. 
 
 The code responsible for the extraction of polygons is the following:  
 ```python  
