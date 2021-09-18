@@ -1,11 +1,11 @@
-#FBX models rendered to SVG format using Python  
-####This program reads a directory of FBX files and renders each of them in a simple webpage in an SVG format.
+# FBX models rendered to SVG format using Python  
+#### This program reads a directory of FBX files and renders each of them in a simple webpage in an SVG format.
 This is the report for the second Tools and Middleware's assignment. Initially, this project started individually by David Barbera and was joined later on by Mircea Catana who offered insights in different ways of using Python bindings to read .fbx files to extract the minimum information to render the model efficiently.
 Here there are some examples:  
 
 ![alt text](https://github.com/DavidBarbera/ToolsAndMiddleware/blob/master/FBX_Web/report/Examples.png "Some examples")
 
-###The Program  
+### The Program  
 The final version of the program uses Python Bindings to extract information about the polygons in each mesh for an .fbx file. This approach offers the possiblity to render the resulting information using the *"polygon points"*-feature of the SVG format, allowing a one-to-one translation from on format to the other and resulting in a nicer display than other approaches tried previously. 
 
 The code responsible for the extraction of polygons is the following:  
@@ -134,13 +134,13 @@ def get_projection(node):
 ```  
 *Comments:* Originally made without the *SomeMaths* module, this approach is less modular and renders to SVG as it recursively reads from the .fbx file, which offers speed. However, it becomes impossible to scale without knowing the boundaries of the scene previously, a feature that exists in the C++ version of the Python SDK but not yet in the Python bindings. This project is filed in the [FBX_WebPage](https://github.com/DavidBarbera/ToolsAndMiddleware/tree/master/FBX_WebPage) folder.
 
-##References  
+## References  
 * [List of Python fbx classes. Autodesk FBX help for SDK](http://download.autodesk.com/us/fbx/20112/FBX_SDK_HELP/index.html?url=WS1a9193826455f5ff453265c9125faa23bbb5fe8.htm,topicNumber=d0e8312)
 
-##Repositories
+## Repositories
 * [Mircea Catana: github.com/mircea-catana/FBX_SVG](https://github.com/mircea-catana/FBX_SVG)
 
-#Video  
+## Video  
 [Link to a video of this project](https://www.youtube.com/watch?v=OvDSIDHvn4Y&feature=youtu.be)
 
 
